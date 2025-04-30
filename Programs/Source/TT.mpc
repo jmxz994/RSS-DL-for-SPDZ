@@ -1,0 +1,372 @@
+'''
+n = 5
+a = sfix.Tensor([n])
+a.assign_all(994)
+a.reveal()
+@for_range(0, n, 1)
+def _(i):
+    print_ln("%s", a[i].reveal())
+
+print_ln("%s", a.reveal())
+
+@for_range(n)
+def _(i):
+    print_ln("%s", a[i].reveal())
+
+#print_ln(a.reveal())
+
+
+
+
+def narrage(n):
+    a = sfix.Array(n)
+    @for_range(n)
+    def _(i):
+        a[i] = i
+    #b = sfix.Tensor([0, n])
+    #b.assgin(a)
+    return a
+    
+coords_h = narrage(3)    #replace the tf.range
+coords_w = narrage(4)
+
+
+coords = []  
+for h in coords_h:  
+    for w in coords_w:  
+        coords[len(coords)][0] = h  
+        coords[len(coords)][1] = w
+
+coords_h = sfix.Tensor([1, 3])
+@for_range(3)
+def _(i):
+    coords_h[0][i] = i
+    
+coords_w = sfix.Tensor([1, 4])
+@for_range(4)
+def _(i):
+    coords_w[0][i] = i
+
+coords = sfix.Tensor([3, 4])
+#coords = sfix.MultiArray([3, 4])
+def Two_Array(i, j):
+    a = sfix.Tensor([1,2])
+    a[0][0] = coords_h[0][i]
+    a[0][1] = coords_w[0][j]
+    return a
+    
+@for_range(3)
+def _(i):
+    @for_range(4)
+    def _(j):
+        coords[i][j] = Two_Array(i, j)
+
+@for_range(3)
+def _(h):
+    @for_range(4)
+    def _(w):
+        print_ln(coords[h][w].reveal())
+
+
+
+import ml
+tf = ml
+layers = [
+    tf.keras.layers.Dense(32, activation='relu'),
+    tf.keras.layers.Dropout(0),
+    tf.keras.layers.Dense(16, activation='relu'),
+    tf.keras.layers.Dense(2,  activation='relu')
+]
+
+
+
+
+a = sfix(1000)
+b = sfix(100)
+ans = a/b
+print_ln('%s',ans.reveal())
+a = sfix(100)
+b = sfix(10)
+ans = a/b
+a = sfix(9)
+b = sfix(3)
+ans = a/b
+a = sfix(9.9)
+b = sfix(3.3)
+ans = a/b
+a = sfix(9.9)
+b = sfix(3.3)
+ans = a/b
+
+
+
+a = sfix(9.9)
+b = sfix(3.3)
+ans = a/b
+a = sfix(9.9)
+b = sfix(3.3)
+ans = a/b
+a = sfix(9.9)
+b = sfix(3.3)
+ans = a/b
+a = sfix(9.9)
+b = sfix(3.3)
+ans = a/b
+'''
+'''
+from Compiler.mpc_math import pow_fx
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+
+
+
+
+
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+a = sfix(2)
+b = sfix(3)
+ans = pow_fx(a,b)
+print_ln('%s',ans.reveal())
+'''
+
+'''
+a = sbits(0)
+
+b = sbits(1)
+
+c = a + b
+
+#a.print_encrypted_value()
+#b.print_encrypted_value()
+#c.print_encrypted_value()
+
+println(a)
+print_reg_signed(a.reveal())
+
+print_reg_signed ("%b", b)
+print_ln("%b", b.reveal())
+
+print_ln("%b", c)
+print_ln("%b", c.reveal())
+
+'''
+
+program.use_trunc_pr = True
+program.use_split(3)
+from Compiler import ml
+from functools import reduce
+from operator import mul
+import mpc_math
+
+start = 0
+
+def reshape(x, new_shape=[]):
+    new_shape = list(new_shape)
+    neg_count = new_shape.count(-1)  # count(): Counting the number of -1's
+    assert neg_count <= 1, "new_shape has more than one -1"
+
+    x_shape = x.shape
+
+    x_elements = reduce(mul, x_shape)
+    assert x_elements % abs(reduce(mul, new_shape)) == 0, "new_shape {} no match the x_shape {}".format(new_shape,
+                                                                                                        x_shape)
+
+    if neg_count > 0:
+        new_shape[new_shape.index(-1)] = x_elements // abs(reduce(mul, new_shape))
+
+    assert reduce(mul, new_shape) == x_elements, "new_shape must equal to x.shape"
+
+    y = x.value_type.Tensor(new_shape)
+    y.assign(x)
+
+    return y
+'''
+def a():
+    B, H, W, C = 128, 224, 224, 3
+    x = sfix.Tensor([B, H, W, C])
+    x.assign_all(0)
+    layerss = [ml.keras.layers.Conv2D(filters=96, kernel_size=4, strides=4, padding='SAME')]
+    a = ml.keras.models.Sequential(layerss)
+    #x = reshape(x, [B, -1])
+    #layerss = [ml.keras.layers.Dense(96)]
+    #a = ml.keras.models.Sequential(layerss)
+    a.build((B, H, W, C))
+    for var in a.trainable_variables:
+        var.input_from(0)
+        #print_ln("Before: %s" , var.reveal())
+    global start 
+    for var in a.trainable_variables:
+        start = var.read_from_file(start)
+        #print_ln("After: %s" , start.reveal())
+    a_output = a.predict(x)
+    return a_output
+    
+#print_ln("reslut of a: %s" , a().reveal())
+a()
+'''
+def flatten_patch(patch):
+    flattened = []
+    for row in patch:
+        for pixel in row:
+            flattened.extend(pixel)
+    return flattened
+
+def extract_patches(x, patch_height, patch_width, B, H, W, C):
+    new_H = (H - patch_height) // patch_height + 1
+    new_W = (W - patch_width) // patch_width + 1
+    
+    patches_list = []
+    for b in range(B):
+        for i in range(new_H):
+            for j in range(new_W):
+                patch = []
+                for m in range(patch_height):
+                    for n in range(patch_width):
+                        for c in range(C):
+                            patch.append(x[b, i * patch_height + m, j * patch_width + n, c])
+                patches_list.append(flatten_patch(patch))
+    
+    patches_shape = [B, new_H, new_W, patch_height * patch_width * C]
+    patches = sfix.Tensor(patches_shape)
+    
+    for idx, patch in enumerate(patches_list):
+        b = idx // (new_H * new_W)
+        remaining = idx % (new_H * new_W)
+        i = remaining // new_W
+        j = remaining % new_W
+        for k in range(len(patch)):
+            patches[b, i, j, k] = patch[k]
+        
+    return patches
+
+def a():
+    B, H, W, C = 1, 224, 224, 3
+    patch_size=4
+    embed_dim=96
+    x = sfix.Tensor([B, H, W, C])
+    x.assign_all(0)
+    #strides = patch_size
+    #output_height = H//strides
+    #output_width = W//strides
+    #conv_output_shape = (B, output_height, output_width, self.filters)
+    #x = reshape(x, [B, -1])
+    patch_height = patch_width = patch_size
+    layerss = [ml.keras.layers.Dense(embed_dim)]
+    proj = ml.keras.models.Sequential(layerss)
+    patches = extract_patches(x, patch_height, patch_width, B, H, W, C)
+    patches = reshape(patches, (B, -1, patch_height * patch_width * C))
+    proj.build((patches.shape))
+    for var in proj.trainable_variables:
+        var.input_from(0)
+    global start 
+    for var in proj.trainable_variables:
+        start = var.read_from_file(start)
+    x = proj.predict(patches)
+
+    return x
+
+a()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
